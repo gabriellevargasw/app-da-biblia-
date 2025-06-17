@@ -2,52 +2,70 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    flex: 1, // diz q a tela ta inteira, dividido 1 por 1//
-    backgroundColor: '#FFF8E1', //cor de fundo bege//
-    padding: 10,// deste caso é a distancia da borda entre o campo de escrita//
-    justifyContent: 'center', //deixar no centro verticalmente
+    flex: 1, // ocupa toda a tela
+    backgroundColor: '#FFF8E1', // fundo bege claro
+    padding: 20, // espaço entre o conteúdo e a borda da tela
+    justifyContent: 'center', // centraliza verticalmente
   },
   titulo: {
-    fontSize: 26, // tamanho da fonte //
-    color: '#5D4037', //cor do titulo de marrom//
-    fontWeight: 'bold', //deixa o titulo em negrito//
-    marginBottom: 10, //a distancia do texto para a caixa de texto //
-    textAlign: 'center', // deixa o texto alinhado no centro// 
+    fontSize: 32, // título grande
+    color: '#5D4037', // marrom escuro
+    fontWeight: 'bold', // em negrito
+    marginBottom: 20, // espaço abaixo do título
+    textAlign: 'center', // centralizado na horizontal
   },
   texto: {
-    fontSize: 19, // tamanho da fonte do texto //
-    color: '#5D4037', //cor do marrom//
-    textAlign: 'center', // deixar o texto alinhado no centro//
+    fontSize: 20, // tamanho confortável de leitura
+    color: '#5D4037', // marrom
+    textAlign: 'center', // alinhado no meio
+    marginVertical: 10, // espaço acima e abaixo do texto
+    lineHeight: 28, // altura das linhas, deixa mais fácil de ler
   },
   botao: {
-    backgroundColor: '#5D4037', //cor de fundo marrom//
-    padding: 15, //aumenta a largura do botao //
-    borderRadius: 8, //deixa a borda redonda, quanto + mais redondo fica//
-    marginVertical: 10, //a distancia entre o botao e o texto //
+    backgroundColor: '#5D4037', // fundo marrom
+    paddingVertical: 15, // altura
+    paddingHorizontal: 30, // largura
+    borderRadius: 10, // cantos arredondados
+    marginVertical: 12, // espaço entre os botões
+    alignSelf: 'center', // centraliza na tela
+    elevation: 4, // sombra no Android
+    shadowColor: '#000', // cor da sombra
+    shadowOffset: { width: 0, height: 2 }, // direção da sombra
+    shadowOpacity: 0.3, // transparência da sombra
+    shadowRadius: 3, // espalhamento da sombra
   },
   textoBotao: {
-    color: 'white', //cor branco //
-    textAlign: 'center', //texto alinhado no centro//
-    fontSize: 16, //tamanho do texto do botao//
+    color: 'white', // texto branco
+    textAlign: 'center', // centralizado
+    fontSize: 18, // tamanho do texto
+    fontWeight: 'bold', // destaque no botão
   },
   input: {
-    borderWidth: 2, //é a borda do campo 
-    borderColor: '#5D4037', //cor marrom//
-    borderRadius: 8, //deixa a borda redonda, quanto + mais redondo fica//
-    padding: 10, //é o tamanho da caixa de texto, quanto mais, maior fica//
-    marginVertical: 8, //altura a distancia dos botoes//
-    backgroundColor: 'white', //cor de fundo branca//
-    color: '#5D4037' //marrom cor do texto dentro do input//
+    borderWidth: 2, // espessura da borda
+    borderColor: '#5D4037', // cor marrom da borda
+    borderRadius: 10, // cantos arredondados
+    padding: 12, // espaço interno
+    marginVertical: 10, // espaço externo
+    backgroundColor: 'white', // fundo branco
+    color: '#5D4037', // texto marrom
+    fontSize: 16, // fonte padrão
+    // sombra leve para destacar visualmente
+    elevation: 3, // sombra no Android
+    shadowOffset: { width: 0, height: 1 },// direção da sombra
+    shadowOpacity: 0.2, // opacidade da sombra
+    shadowRadius: 2,// suavidade da sombra
   },
   botaovoltar: {
-    position: 'absolute', // ele defina o tamanho do botao, pq sem ele o bottom e o left nao funciona//
-    bottom:20,// define a distancia entre do "chao" ate o botao//
-    left:10,// a distancia da borda pra esquerda do botao//
-    backgroundColor:'#5D4037', //cor de fundo marrom//
-    paddingVertical:10, // define a altura do botao na vertical//
-    paddingHorizontal:16, // define a altura do botao na horizontal//
-    borderRadius:12 // quanto maior o numero mais redondo fica a borda//
+    position: 'absolute', // fixo na tela
+    bottom: 20, // distância do rodapé
+    left: 15, // distância da borda esquerda
+    backgroundColor: '#5D4037', // mesmo tom de marrom
+    paddingVertical: 10, // altura do botão
+    paddingHorizontal: 20, // largura
+    borderRadius: 12, // bem arredondado
+    elevation: 3, // sombra no Android
+    shadowOffset: { width: 0, height: 1 }, // direção da sombra
+    shadowOpacity: 0.25, // opacidade da sombra
+    shadowRadius: 2,// suavidade da sombra
   },
-
-
 });

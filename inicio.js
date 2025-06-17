@@ -10,6 +10,9 @@ export default function inicio({ navigation }) { // e a funcao de navegacao dai 
       <TouchableOpacity style={estilo.botao} onPress={() => navigation.navigate('Buscar')}>
         <Text style={estilo.textoBotao}> Buscar Versículo</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={estilo.botao} onPress={() => navigation.navigate('Aleatorio')}>
+        <Text style={estilo.textoBotao}> Buscar Versículo Aleatorio</Text>
+      </TouchableOpacity>
     </View>
     // esse é tipo um botao que se clicar e ele vai para a proxima pagina q é buscar
   );

@@ -4,6 +4,7 @@ import Splash from './splash';// ele vai importa a tela "splash" da onde ela est
 import Inicio from './inicio';//ele vai importa a tela "inicio" da onde ela estiver no caso esse é o caminho para acessar ela 
 import Buscar from './buscar';//ele vai importa a tela "buscar" da onde ela estiver no caso esse é o caminho para acessar ela 
 import Detalhes from './detalhes';//ele vai importa a tela "detalhes" da onde ela estiver no caso esse é o caminho para acessar ela 
+import Aleatorio from './aleatorio';
 
 const Stack = createNativeStackNavigator();//essa constante ela deixa uma tela emcima da outra quando clico em voltar ela so sai
 
@@ -15,6 +16,7 @@ export default function App() {
         <Stack.Screen name="Inicio" component={Inicio} options={{ headerShown: false }}/>
         <Stack.Screen name="Buscar" component={Buscar} options={{ headerShown: false }}/>
         <Stack.Screen name="Detalhes" component={Detalhes} options={{ headerShown: false }}/>
+        <Stack.Screen name="Aleatorio" component={Aleatorio} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );// ele vai retornar as navegacoes. começa pela tela de splash. 
