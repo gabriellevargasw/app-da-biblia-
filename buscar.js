@@ -1,74 +1,121 @@
-import { View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';//importa a view,textinput,touchableopacity,text e o alert 
-import { useState } from 'react';
-import estilo from './estilo';//importa o estilo
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 
-export default function Buscar({ navigation }) { //e a funcao de navegacao dai ele retornar a view buscar
-  const [livro, setLivro] = useState(''); // a constante livro é tipo uma caixa q começa vazia, mas dai o usuario tem q escrever algo pra 
-  // "caixa" nao ser mais vazia. e o setlivro é tipo a chave da "caixa" e se o usuario ja escreveu algo dentro da "caixa" vai ficar
-  // ex:livro=Hebreus
-  const [cap, setCap] = useState('');// o cap(capitulo) e o vers(versiculo) sao as mesmas coisas do livro so que no cap ele pega capitulo
-  //q o usuario digitou ex:cap=11 e no vers ele pega o versiculo q ele digitou ex:vers=1
+export default function Buscar({ navigation }) {
+  const [livro, setLivro] = useState('');
+  const [cap, setCap] = useState('');
   const [vers, setVers] = useState('');
 
   const removerAcentos = (texto) => {
     return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  };//ele pega oq o usuario digitou se o usuario digitou com acento ex:gênesis e vai e faz genesis + ^ ele separa a palavra do acento pq 
-  //a minha api ela nao aceita palavras com acentos 
+  };
 
   const buscar = async () => {
     if (!livro || !cap || !vers) {
       Alert.alert('Preencha todos os campos!');
       return;
-    }// aqui ele cria uma constante de buscar dai da um if no livro e cap,vers se nao tiver algum deles ele para de "funcionar" 
-    // e dai ele da um alerta que vc nao preencheu todos os campos    
+    }
 
-    const livroFormatado = removerAcentos(livro.toLowerCase());//esse linha é para a api entender oq o usuario escreveu ex:se o usuario 
-    //escreveu Gênesis ele tira e deixa genesis. o LowerCase faz o maiusculo ficar minusculo e o remover acento revome o acento
+    const livroFormatado = removerAcentos(livro.toLowerCase());
 
     try {
       const url = `https://bible-api.com/${livroFormatado}+${cap}:${vers}?translation=almeida`;
-      const resposta = await fetch(url);// vai busca a resposta na api 
-      const dados = await resposta.json();//ele pega a resposta e transforma em alguma coisa pro computador(transforma em dados)
+      const resposta = await fetch(url);
+      const dados = await resposta.json();
 
-      //o if ele manda para a tela detalhes se ele achar os 3 (livro,cap e vers)
       if (dados.text) {
         navigation.navigate('Detalhes', {
           referencia: dados.reference,
           texto: dados.text
-        });// se ele nao achar o versiculo ele manda pro else e da um alerta "versiculo nao encontrado"
+        });
       } else {
         Alert.alert('Versículo não encontrado.');
       }
     } catch (error) {
       Alert.alert('Erro ao buscar versículo.');
     }
-  };// se nao der nem um nem outro ele da um erro dizendo 'erro ao buscar versiculo'
+  };
 
-  // esse ele vai retornar o formulario pedindo o livro,cap e vers
   return (
-    <View style={estilo.container}>
-      <Text style={estilo.titulo}>Buscar Versículo</Text>
+    <View style={styles.container}>
+      <Text style={styles.titulo}>📖 Buscar Versículo</Text>
 
       <TextInput
-        placeholder="Livro (ex:Joao)" value={livro} onChangeText={setLivro} style={estilo.input}
+        style={styles.input}
+        placeholder="Livro (ex: João)"
+        value={livro}
+        onChangeText={setLivro}
       />
-
       <TextInput
-        placeholder="Capítulo (ex:3)" value={cap} onChangeText={setCap} style={estilo.input}
+        style={styles.input}
+        placeholder="Capítulo (ex: 3)"
+        keyboardType="numeric"
+        value={cap}
+        onChangeText={setCap}
       />
-
       <TextInput
-        placeholder="Versículo (ex:16)" value={vers} onChangeText={setVers} style={estilo.input}
+        style={styles.input}
+        placeholder="Versículo (ex: 16)"
+        keyboardType="numeric"
+        value={vers}
+        onChangeText={setVers}
       />
 
-      <TouchableOpacity style={estilo.botao} onPress={buscar}>
-        <Text style={estilo.textoBotao}>Buscar</Text>
+      <TouchableOpacity style={styles.botao} onPress={buscar}>
+        <Text style={styles.textoBotao}>Buscar</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={estilo.botaovoltar} onPress={() => navigation.navigate('Inicio')}>
-        <Text style={estilo.textoBotao}>Voltar</Text>
-
+      <TouchableOpacity style={styles.botaovoltar} onPress={() => navigation.navigate('Inicio')}>
+        <Text style={styles.textoBotaoVoltar}>Voltar</Text>
       </TouchableOpacity>
     </View>
-  );//TouchableOpacity é o botao de buscar e o botao de voltar para a pagina anterior
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF8E1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  titulo: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#5D4037',
+    marginBottom: 20,
+  },
+  input: {
+    width: '90%',
+    backgroundColor: '#fff',
+    borderColor: '#A1887F',
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 15,
+    fontSize: 16,
+  },
+  botao: {
+    backgroundColor: '#A1887F',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    marginTop: 10,
+    width: '80%',
+    alignItems: 'center',
+  },
+  textoBotao: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  botaovoltar: {
+    marginTop: 15,
+  },
+  textoBotaoVoltar: {
+    color: '#6D4C41',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+});

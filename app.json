@@ -1,14 +1,14 @@
 {
   "expo": {
     "name": "App da Biblia",
-    "slug": "App da Biblia",
+    "slug": "appdabiblia",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/biblia.png", 
+    "icon": "./assets/biblia.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/bible.png",
+      "image": "./assets/biblia.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,13 +17,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/bible.png",
+        "foregroundImage": "./assets/biblia.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.biblia.app"
     },
     "web": {
-      "favicon": "./assets/bible.png" 
+      "favicon": "./assets/biblia.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "96247663-3c22-46f3-9e25-0cdcc4e48c32"
+      }
     }
   }
 }

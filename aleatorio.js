@@ -1,12 +1,18 @@
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import React, { useState } from 'react';
-import estilo from './estilo';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  StyleSheet,
+  ImageBackground,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const Aleatorio = () => {
   const [versiculo, setVersiculo] = useState(null);
   const [carregando, setCarregando] = useState(false);
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
   const referencias = [
     'joao+3:16',
@@ -21,80 +27,111 @@ const Aleatorio = () => {
 
   const buscarVersiculo = async () => {
     setCarregando(true);
-    const sorteado = referencias[Math.floor(Math.random() * referencias.length)];
+    setVersiculo(null);
+
+    const sorteado =
+      referencias[Math.floor(Math.random() * referencias.length)];
 
     try {
-      const resposta = await fetch(`https://bible-api.com/${sorteado}?translation=almeida`);
+      const resposta = await fetch(
+        `https://bible-api.com/${sorteado}?translation=almeida`
+      );
       const dados = await resposta.json();
 
       if (dados && dados.text) {
         setVersiculo(dados);
       } else {
-        Alert.alert('Erro', 'Versículo não encontrado.');
+        alert('Erro: Versículo não encontrado.');
       }
     } catch (erro) {
-      Alert.alert('Erro', 'Falha ao buscar versículo: ' + erro.message);
+      alert('Erro ao buscar versículo: ' + erro.message);
     }
 
     setCarregando(false);
   };
 
   return (
-    <View style={estilos.container}>
-      <Text style={estilos.titulo}>Versículo Aleatório</Text>
+    <ImageBackground
+      source={require('./assets/céu.jpg')}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <View style={styles.overlay}>
+        <Text style={styles.titulo}>Versículo Aleatório</Text>
 
-      {carregando ? (
-        <ActivityIndicator size="large" color="#8B4513" />
-      ) : (
-        <>
-          {versiculo && (
-            <View style={estilos.caixa}>
-              <Text style={estilos.texto}>{versiculo.text}</Text>
-              <Text style={estilos.referencia}>— {versiculo.reference}</Text>
-            </View>
-          )}
-          <TouchableOpacity style={estilo.botao} onPress={buscarVersiculo}>
-            <Text style={estilo.textoBotao}>Buscar Versículo</Text>
-          </TouchableOpacity>
-        </>
-      )}
-      <TouchableOpacity style={estilo.botaovoltar} onPress={() => navigation.goBack()}>
-        <Text style={estilo.textoBotao}>Voltar</Text>
-      </TouchableOpacity>
-    </View>
+        {carregando ? (
+          <ActivityIndicator size="large" color="#6A1B9A" />
+        ) : versiculo ? (
+          <View style={styles.card}>
+            <Text style={styles.texto}>{versiculo.text}</Text>
+            <Text style={styles.referencia}>— {versiculo.reference}</Text>
+          </View>
+        ) : null}
+
+        <TouchableOpacity style={styles.botao} onPress={buscarVersiculo}>
+          <Text style={styles.textoBotao}>Buscar Versículo</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.botao,]} onPress={() => navigation.goBack()}>
+          <Text style={styles.textoBotao}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 
-const estilos = StyleSheet.create({
-  container: {
+const styles = StyleSheet.create({
+  background: {
     flex: 1,
-    backgroundColor: '#F5F5DC',
-    alignItems: 'center',
+  },
+  overlay: {
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
   },
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#4E342E',
     marginBottom: 20,
-    color: '#4B2E2E',
   },
-  caixa: {
-    backgroundColor: '#FFF',
-    padding: 20,
+  card: {
+    backgroundColor: '#fff',
+    padding: 25,
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 5,
+    elevation: 4,
+    width: '100%',
     marginBottom: 20,
-    borderRadius: 10,
-    borderColor: '#8B4513',
-    borderWidth: 1,
   },
   texto: {
     fontSize: 18,
-    marginBottom: 10,
-    color: '#333',
+    color: '#6D4C41',
+    lineHeight: 26,
+    textAlign: 'justify',
   },
   referencia: {
+    marginTop: 10,
     fontStyle: 'italic',
-    color: '#555',
+    textAlign: 'right',
+    color: '#795548',
+  },
+  botao: {
+    backgroundColor: '#6D4C41',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 25,
+    marginTop: 15,
+  },
+  textoBotao: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 

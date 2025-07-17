@@ -1,19 +1,76 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';//importa as coisas do React Native, view,texto,touchableopacity 
-//e o estilo
-import estilo from './estilo';// importar o estilo 
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-export default function inicio({ navigation }) { // e a funcao de navegacao dai ele retornar a view inicio e dentro da view e dai tem o titulo
+export default function Inicio({ navigation }) {
   return (
-    <View style={estilo.container}>
-      <Text style={estilo.titulo}>Bíblia App</Text>
+    <View style={styles.container}>
+      <Image
+        source={require('./assets/bible.png')}
+        style={styles.imagem}
+      />
+      <Text style={styles.titulo}>Bíblia App</Text>
+      <Text style={styles.versiculo}>
+        “Lâmpada para os meus pés é a tua palavra e luz para o meu caminho.” (Salmo 119:105)
+      </Text>
 
-      <TouchableOpacity style={estilo.botao} onPress={() => navigation.navigate('Buscar')}>
-        <Text style={estilo.textoBotao}> Buscar Versículo</Text>
+      <TouchableOpacity
+        style={styles.botao}
+        onPress={() => navigation.navigate('Buscar')}
+      >
+        <Text style={styles.textoBotao}>📖 Buscar Versículo</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={estilo.botao} onPress={() => navigation.navigate('Aleatorio')}>
-        <Text style={estilo.textoBotao}> Buscar Versículo Aleatorio</Text>
+
+      <TouchableOpacity
+        style={styles.botao}
+        onPress={() => navigation.navigate('Aleatorio')}
+      >
+        <Text style={styles.textoBotao}>🎲 Versículo Aleatório</Text>
       </TouchableOpacity>
+
     </View>
-    // esse é tipo um botao que se clicar e ele vai para a proxima pagina q é buscar
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF8E1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  imagem: {
+    width: 120,
+    height: 120,
+    marginBottom: 20,
+  },
+  titulo: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#5D4037',
+    marginBottom: 10,
+  },
+  versiculo: {
+    fontSize: 14,
+    color: '#6D4C41',
+    fontStyle: 'italic',
+    textAlign: 'center',
+    marginBottom: 30,
+    paddingHorizontal: 10,
+  },
+  botao: {
+    backgroundColor: '#A1887F',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    marginVertical: 8,
+    width: '80%',
+    alignItems: 'center',
+    elevation: 2,
+  },
+  textoBotao: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+});
